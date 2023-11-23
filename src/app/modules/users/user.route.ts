@@ -7,6 +7,6 @@ router.post('/api/users', userController.createUser);
 //get all users
 router.get('/api/users', userController.getAllUsers);
 //get user by id
-router.get('/api/users/:userId');
+// router.get('/api/users/:userId',userController);
 
 export const userRoutes = router;
