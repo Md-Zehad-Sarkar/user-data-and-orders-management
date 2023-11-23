@@ -39,7 +39,7 @@ export const usersZodSchema = z.object({
       message:
         'user name is required. first name & last name first character must be capitalized',
     }),
-  age: z.number().min(13, 'You need minimum 13 years old'),
+  age: z.number(),
   email: z.string().email().trim(),
   isActive: z.boolean().default(true),
   hobbies: z.string().array(),

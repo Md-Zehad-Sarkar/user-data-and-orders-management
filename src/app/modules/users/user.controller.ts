@@ -46,4 +46,36 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-export const userController = { createUser, getAllUsers };
+//get users by id
+const getUsersById = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const users = await userServices.getUsersByIdFromDB(userId);
+    if (!users) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found',
+        errors: {
+          code: res.statusCode,
+          description: 'User not found',
+        },
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: 'User fetched successfully!',
+      data: users,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'User not found',
+      errors: {
+        code: res.statusCode,
+        description: res.statusMessage,
+      },
+    });
+  }
+};
+
+export const userController = { createUser, getAllUsers, getUsersById };
