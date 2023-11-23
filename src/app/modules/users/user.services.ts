@@ -14,7 +14,7 @@ const createUsersIntoDB = async (user: TUser) => {
 //get all users
 const getAllUsersFromDB = async () => {
   try {
-    const allUsers = await UserModel.find({},{ password: 0 });
+    const allUsers = await UserModel.find({}, { password: 0 });
     return allUsers;
   } catch (error) {
     console.log('getAllUsersFromDB', error);
@@ -34,8 +34,29 @@ const getUsersByIdFromDB = async (id: string | number) => {
   }
 };
 
+// //update user info
+// const updateUsersDB = async (id: string | number, updateDoc: TUser) => {
+//   try {
+//     const getUser = await UserModel.updateOne(
+//       { userId: id },
+//       {users: {$set: updateDoc} },
+//     );
+//     return getUser;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+//delete users
+const deleteUserFromDB = async (id: string | number) => {
+  const result = await UserModel.deleteOne({ userId: id });
+  return result;
+};
+
 export const userServices = {
   createUsersIntoDB,
   getAllUsersFromDB,
   getUsersByIdFromDB,
+  // updateUsersDB,
+  deleteUserFromDB,
 };

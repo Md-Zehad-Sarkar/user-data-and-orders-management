@@ -9,4 +9,8 @@ router.get('/api/users', userController.getAllUsers);
 //get user by id
 router.get('/api/users/:userId', userController.getUsersById);
 
+//update user info
+// router.put('/api/users/:userId', userController.updateUser);
+router.delete('/api/users/:userId', userController.deletedUser);
+
 export const userRoutes = router;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import { userServices } from './user.services';
 import { usersZodSchema } from './zod.validation';
@@ -78,4 +79,45 @@ const getUsersById = async (req: Request, res: Response) => {
   }
 };
 
-export const userController = { createUser, getAllUsers, getUsersById };
+// //update user
+// const updateUser = async (req: Request, res: Response) => {
+//   try {
+//     const { userId } = req.params;
+//     const updateDocuments = req.body;
+//     const updateResult = await userServices.updateUsersDB(
+//       userId,
+//       updateDocuments,
+//     );
+//     res.status(200).json({
+//       success: true,
+//       message: 'user updated successfully',
+//       data: updateResult,
+//     });
+//   } catch (error) {
+//     console.log('update-document', error);
+//   }
+// };
+
+//delete user
+const deletedUser = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const result = await userServices.deleteUserFromDB(userId);
+    if (result.deletedCount) {
+      res.status(200).json({
+        success: true,
+        message: 'User deleted successfully',
+        data: null,
+      });
+    }
+  } catch (error:any) {
+    throw new Error(error);
+  }
+};
+export const userController = {
+  createUser,
+  getAllUsers,
+  getUsersById,
+  // updateUser,
+  deletedUser,
+};
