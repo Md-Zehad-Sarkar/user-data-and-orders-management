@@ -95,7 +95,7 @@ const updateUser = async (req: Request, res: Response) => {
       message: 'user updated successfully',
       data: updateResult,
     });
-  } catch (error:any) {
+  } catch (error: any) {
     throw new Error(error);
   }
 };
