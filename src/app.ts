@@ -6,6 +6,7 @@ const app: Application = express();
 //middleware
 app.use(express.json());
 app.use(cors());
+
 //application routes
 app.use('/', userRoutes);
 

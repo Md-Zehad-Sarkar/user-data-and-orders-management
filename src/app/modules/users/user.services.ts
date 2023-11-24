@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TOrders } from '../orders/orders.interface';
+
 import { TUser } from './user.interface';
 import { UserModel } from './user.model';
 
