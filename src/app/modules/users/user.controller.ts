@@ -80,7 +80,7 @@ const getUsersById = async (req: Request, res: Response) => {
   }
 };
 
-//update user
+//update users
 const updateUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
