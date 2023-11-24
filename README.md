@@ -9,7 +9,7 @@
 - mongoose
 - zod validation, bcrypt, dotenv, eslint
 
-# implements 
+# Implements 
 - user create
 - all users find
 - user find by userId
@@ -20,5 +20,5 @@
 - user validation with zod
 - eslint and prettier
 
-# deploy 
+# Deploy 
 - vercel

@@ -96,7 +96,14 @@ const updateUser = async (req: Request, res: Response) => {
       data: updateResult,
     });
   } catch (error: any) {
-    throw new Error(error);
+    res.status(404).json({
+      success: false,
+      message: 'User not found',
+      errors: {
+        code: res.statusCode,
+        description: res.statusMessage,
+      },
+    });
   }
 };
 
@@ -113,7 +120,14 @@ const deletedUser = async (req: Request, res: Response) => {
       });
     }
   } catch (error: any) {
-    throw new Error(error);
+   res.status(404).json({
+     success: false,
+     message: 'User not found',
+     errors: {
+       code: res.statusCode,
+       description: res.statusMessage,
+     },
+   });
   }
 };
 
