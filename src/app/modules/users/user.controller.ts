@@ -118,21 +118,21 @@ const deletedUser = async (req: Request, res: Response) => {
 };
 
 //order management
-// const addUserOrders = async (req: Request, res: Response) => {
-//   try {
-//     const { userId } = req.params;
-//     const order = req.body;
-//     console.log('ordersss', userId);
-//     const result = await userServices.addUserOrdersIntoDB(userId, order);
-//     res.status(200).json({
-//       success: true,
-//       message: 'Order created successfully!',
-//       data: result,
-//     });
-//   } catch (error) {
-//     console.log('add order to user coll', error);
-//   }
-// };
+const addUserOrders = async (req: Request, res: Response) => {
+  try {
+    const  userId  = req.params.userId;
+    const userOrder = req.body;
+    // console.log('ordersss', userOrder);
+    const result = await userServices.addUserOrdersIntoDB(userId, userOrder);
+    res.status(200).json({
+      success: true,
+      message: 'Order created successfully!',
+      data: result,
+    });
+  } catch (error) {
+    console.log('add order to user coll', error);
+  }
+};
 
 export const userController = {
   createUser,
@@ -140,5 +140,5 @@ export const userController = {
   getUsersById,
   updateUser,
   deletedUser,
-  // addUserOrders,
+  addUserOrders,
 };

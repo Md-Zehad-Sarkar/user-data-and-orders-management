@@ -8,8 +8,8 @@ const createUsersIntoDB = async (user: TUser) => {
   try {
     const users = await UserModel.create(user);
     return users;
-  } catch (error) {
-    console.log('db error', error);
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
 
@@ -32,13 +32,13 @@ const getAllUsersFromDB = async () => {
       address: 1,
     });
     return allUsers;
-  } catch (error) {
-    console.log('getAllUsersFromDB', error);
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
 
 //get user by id
-const getUsersByIdFromDB = async (id: number) => {
+const getUsersByIdFromDB = async (id: string | number) => {
   try {
     const userById = await UserModel.findOne({ userId: id }, { password: 0 });
     if (!userById) {
@@ -51,7 +51,7 @@ const getUsersByIdFromDB = async (id: number) => {
 };
 
 //update user info
-const updateUsersDB = async (id: number, updateDoc: TUser) => {
+const updateUsersDB = async (id: string | number, updateDoc: TUser) => {
   try {
     const updateUser = await UserModel.findOneAndUpdate(
       { userId: id },
@@ -60,7 +60,10 @@ const updateUsersDB = async (id: number, updateDoc: TUser) => {
           userId: updateDoc.userId,
           username: updateDoc.username,
           password: updateDoc.password,
-          fullName: updateDoc.fullName,
+          fullName: {
+            'fullName.firstName': updateDoc.fullName.firstName,
+            'fullName.lastName': updateDoc.fullName.lastName,
+          },
           age: updateDoc.age,
           email: updateDoc.email,
           isActive: updateDoc.isActive,
@@ -78,24 +81,10 @@ const updateUsersDB = async (id: number, updateDoc: TUser) => {
 };
 
 //delete users
-const deleteUserFromDB = async (id: number) => {
+const deleteUserFromDB = async (id: string | number) => {
   const result = await UserModel.deleteOne({ userId: id });
   return result;
 };
-
-//order management
-// const addUserOrdersIntoDB = async (id: string | number, order: TOrders) => {
-//   try {
-//     const getId = await UserModel.findOne({ userId: id });
-//     const addOrder = await UserModel.updateOne({
-//       getId,
-//       $set: { orders: order },
-//     });
-//     return addOrder;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 export const userServices = {
   createUsersIntoDB,
@@ -103,5 +92,4 @@ export const userServices = {
   getUsersByIdFromDB,
   updateUsersDB,
   deleteUserFromDB,
-  // addUserOrdersIntoDB,
 };
