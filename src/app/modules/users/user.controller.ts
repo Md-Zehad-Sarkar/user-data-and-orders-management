@@ -85,7 +85,7 @@ const updateUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     const updateDocuments = req.body;
-   
+
     const updateResult = await userServices.updateUsersDB(
       userId,
       updateDocuments,
@@ -95,8 +95,8 @@ const updateUser = async (req: Request, res: Response) => {
       message: 'user updated successfully',
       data: updateResult,
     });
-  } catch (error) {
-    console.log('update-document', error);
+  } catch (error:any) {
+    throw new Error(error);
   }
 };
 
@@ -117,28 +117,10 @@ const deletedUser = async (req: Request, res: Response) => {
   }
 };
 
-//order management
-const addUserOrders = async (req: Request, res: Response) => {
-  try {
-    const  userId  = req.params.userId;
-    const userOrder = req.body;
-    // console.log('ordersss', userOrder);
-    const result = await userServices.addUserOrdersIntoDB(userId, userOrder);
-    res.status(200).json({
-      success: true,
-      message: 'Order created successfully!',
-      data: result,
-    });
-  } catch (error) {
-    console.log('add order to user coll', error);
-  }
-};
-
 export const userController = {
   createUser,
   getAllUsers,
   getUsersById,
   updateUser,
   deletedUser,
-  addUserOrders,
 };
