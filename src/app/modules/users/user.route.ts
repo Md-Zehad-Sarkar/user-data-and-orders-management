@@ -10,7 +10,12 @@ router.get('/api/users', userController.getAllUsers);
 router.get('/api/users/:userId', userController.getUsersById);
 
 //update user info
-// router.put('/api/users/:userId', userController.updateUser);
+router.put('/api/users/:userId', userController.updateUser);
+
+//delete user
 router.delete('/api/users/:userId', userController.deletedUser);
+
+//order add 
+// router.put('/api/users/:userId/orders',userController.addUserOrders);
 
 export const userRoutes = router;

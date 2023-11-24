@@ -9,6 +9,7 @@ const createUser = async (req: Request, res: Response) => {
     const { users: userData } = req.body;
     const userZodParser = usersZodSchema.parse(userData);
     const createdUser = await userServices.createUsersIntoDB(userZodParser);
+
     res.status(200).json({
       success: true,
       message: 'User created successfully!',
@@ -79,24 +80,25 @@ const getUsersById = async (req: Request, res: Response) => {
   }
 };
 
-// //update user
-// const updateUser = async (req: Request, res: Response) => {
-//   try {
-//     const { userId } = req.params;
-//     const updateDocuments = req.body;
-//     const updateResult = await userServices.updateUsersDB(
-//       userId,
-//       updateDocuments,
-//     );
-//     res.status(200).json({
-//       success: true,
-//       message: 'user updated successfully',
-//       data: updateResult,
-//     });
-//   } catch (error) {
-//     console.log('update-document', error);
-//   }
-// };
+//update user
+const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const updateDocuments = req.body;
+   
+    const updateResult = await userServices.updateUsersDB(
+      userId,
+      updateDocuments,
+    );
+    res.status(200).json({
+      success: true,
+      message: 'user updated successfully',
+      data: updateResult,
+    });
+  } catch (error) {
+    console.log('update-document', error);
+  }
+};
 
 //delete user
 const deletedUser = async (req: Request, res: Response) => {
@@ -110,14 +112,33 @@ const deletedUser = async (req: Request, res: Response) => {
         data: null,
       });
     }
-  } catch (error:any) {
+  } catch (error: any) {
     throw new Error(error);
   }
 };
+
+//order management
+// const addUserOrders = async (req: Request, res: Response) => {
+//   try {
+//     const { userId } = req.params;
+//     const order = req.body;
+//     console.log('ordersss', userId);
+//     const result = await userServices.addUserOrdersIntoDB(userId, order);
+//     res.status(200).json({
+//       success: true,
+//       message: 'Order created successfully!',
+//       data: result,
+//     });
+//   } catch (error) {
+//     console.log('add order to user coll', error);
+//   }
+// };
+
 export const userController = {
   createUser,
   getAllUsers,
   getUsersById,
-  // updateUser,
+  updateUser,
   deletedUser,
+  // addUserOrders,
 };

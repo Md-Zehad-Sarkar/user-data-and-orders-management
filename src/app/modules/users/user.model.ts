@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import bcrypt from 'bcrypt';
 import {
   TAddress,
   TUser,
@@ -6,6 +7,7 @@ import {
   TUserModel,
   TUserName,
 } from './user.interface';
+import config from '../../config';
 
 //fullName schema
 const fullNameSchema = new Schema<TUserName>({
@@ -54,8 +56,20 @@ const usersSchema = new Schema<TUser, TUserModel, TUserMethod>({
   address: { type: userAddressSchema, required: [true, 'address is required'] },
 });
 
+//middleware
+usersSchema.pre('save', async function (next) {
+  // const user = this;
+  this.password = await bcrypt.hash(this.password, Number(config.bcrypt_salt));
+  next();
+});
+
+usersSchema.post('save', function (res, next) {
+  res.password = '';
+  next();
+});
+
 //instance method
-usersSchema.methods.isUserExists = async function (id: string | number) {
+usersSchema.methods.isUserExists = async function (id: number) {
   const existingUser = await UserModel.findOne({ userId: id });
   return existingUser;
 };

@@ -25,7 +25,7 @@ export type TUser = {
 };
 
 export type TUserMethod = {
-  isUserExists(id: string | number): Promise<TUser | null>;
+  isUserExists(id: number): Promise<TUser | null>;
 };
 
 export type TUserModel = Model<
